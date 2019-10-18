@@ -966,6 +966,7 @@
                                 
                                 <script>
                                     window.onload = function () {
+                                        var isFirstVisible = true;
                                         const video = document.querySelector('.hpmd-video');
                                         const button = document.getElementsByClassName('mute-button')[0];
                                         const muteButton = document.getElementsByClassName('mute-button-wrapper')[0];
@@ -1039,6 +1040,10 @@
                                             if (isVisible && !isPlaying) {
                                                 isPlaying = true;
                                                 video.play();
+                                                if (isFirstVisible) {
+                                                    isFirstVisible = false;
+                                                    setTimeout(reduceVideo, 2000);
+                                                }
                                             } else if (!isVisible && isPlaying) {
                                                 isPlaying = false;
                                                 video.pause();
@@ -1048,7 +1053,7 @@
                                         window.addEventListener('scroll', scrollHandler);
                                         video.pause();
                                         scrollHandler();
-                                        setTimeout(reduceVideo, 2000);
+                                       
 
                                         // Запускаем функцию при прокрутке страницы
                                         // window.addEventListener('scroll', function () {
