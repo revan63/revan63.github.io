@@ -8017,6 +8017,8 @@
                 timelines[currentSlide - 1].style.width = (100 * progress) + 'px';
             }
         });
+        var bannerContainer = document.querySelector('.hpmd_banner-container');
+        var isPlaying = false;
 
         function findTimelines() {
             for (var i = 1; i <= steps; i++) {
@@ -8045,12 +8047,6 @@
         let timeoutId;
         function autoPlay(step) {
             if (step < 4) {
-                if (step === 2) {
-                    video.play();
-                } else {
-                    video.pause();
-                    video.currentTime = 0;
-                }
 
                 animateTimeline(timelines[step - 1]);
 
@@ -8097,6 +8093,16 @@
                 node.style[prop] = value;
             });
         }
+        function isScrolledIntoView(el) {
+            var rect = el.getBoundingClientRect();
+            var elemHalfHeight = rect.height * .5;
+            var elemTop = rect.top + elemHalfHeight;
+            var elemBottom = rect.bottom - elemHalfHeight;
+
+            var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+
+            return isVisible;
+        }
 
         function showPrevSlide() {
             if (currentSlide === steps) {
@@ -8118,6 +8124,14 @@
                     setTransform(slider, 'translate3d(' + (-100 / steps * (steps - 1)) + '%, 0%, 0)');
                     timelines[currentSlide - 1].classList.remove('hpmd-active');
                     currentSlide = steps;
+                    if (currentSlide === 2 && isScrolledIntoView(video)) {
+                        video.play();
+                        isPlaying = true;
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                        isPlaying = false;
+                    }
                     timelines[currentSlide - 1].removeAttribute('style');
                     timelines.slice(0, -1).forEach(function (item) {
                         item.classList.add('hpmd-active');
@@ -8134,6 +8148,14 @@
                 timelines[currentSlide - 1].classList.remove('hpmd-active');
                 setTimeout(function () {
                     autoPlayControl.start();
+                    if (currentSlide === 2 && isScrolledIntoView(video)) {
+                        video.play();
+                        isPlaying = true;
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                        isPlaying = false;
+                    }
                 }, 310);
             }
         }
@@ -8161,6 +8183,14 @@
                     setTransform(slides[0], 'translate3d(0%, 0%, 0)');
                     setTransform(slider, 'translate3d(0%, 0%, 0)');
                     currentSlide = 1;
+                    if (currentSlide === 2 && isScrolledIntoView(video)) {
+                        video.play();
+                        isPlaying = true;
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                        isPlaying = false;
+                    }
                     autoPlayControl.start();
                     setTimeout(function () {
                         slider.classList.remove('hpmd-no-transition');
@@ -8170,6 +8200,14 @@
                 setTransform(slider, 'translate3d(' + (-currentSlide * (100 / steps) + '%') + ', 0%, 0)');
                 timelines[currentSlide - 1].classList.add('hpmd-active');
                 currentSlide++;
+                if (currentSlide === 2 && isScrolledIntoView(video)) {
+                    video.play();
+                    isPlaying = true;
+                } else {
+                    video.pause();
+                    video.currentTime = 0;
+                    isPlaying = false;
+                }
                 setTimeout(function () {
                     autoPlayControl.start();
                 }, 310);
@@ -8477,6 +8515,19 @@
                 getSize();
                 setTextSizes();
             });
+
+            function scrollHandler() {
+                var isVisible = isScrolledIntoView(bannerContainer);
+
+                if (!isVisible && isPlaying) {
+                    video.pause();
+                    isPlaying = false;
+                } else if (isVisible && currentSlide === 2 && !isPlaying) {
+                    video.play();
+                    isPlaying = true;
+                }
+            }
+            window.addEventListener('scroll', scrollHandler);
         });
     </script>
 
