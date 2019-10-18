@@ -176,7 +176,7 @@
             width: 300%;
             position: absolute;
             top: 0;
-            transition: transform .3s ease-out;
+            transition: transform .4s ease-in-out;
         }
         .hpmd-no-transition {
             transition: none!important;
@@ -1717,6 +1717,7 @@
     <script defer src="//st.s5o.ru/build/mobile/article.72bc6d.js"></script>
 
     <script>
+        var autoPlayIsPlaying = false;
         var steps = 3;
         var currentSlide = 1;
         var slider;
@@ -1724,11 +1725,11 @@
         var video;
         var button;
         var timelines = [].slice.call(document.querySelectorAll('.hpmd_timelines>div'));
-        var autoPlayControl = initAutoPlay(5000, function(progress) {
+        var autoPlayControl = initAutoPlay(2500, function(progress) {
+            timelines[currentSlide - 1].style.width = (100 * progress) + '%';
+
             if (progress === 1) {
                 showNextSlide();
-            } else {
-                timelines[currentSlide - 1].style.width = (100 * progress) + 'px';
             }
         });
         var isPlaying = false;
@@ -1862,7 +1863,7 @@
                         slider.classList.remove('hpmd-no-transition');
                     }, 50);
                     autoPlayControl.start();
-                }, 310);
+                }, 410);
             } else {
                 setTransform(slider, 'translate3d(' + (-(currentSlide - 2) * (100 / steps) + '%') + ', 0%, 0)');
                 timelines[currentSlide - 1].removeAttribute('style');
@@ -1879,7 +1880,7 @@
                         video.currentTime = 0;
                         isPlaying = false;
                     }
-                }, 310);
+                }, 410);
             }
         }
 
@@ -1918,7 +1919,7 @@
                     setTimeout(function() {
                         slider.classList.remove('hpmd-no-transition');
                     }, 50);
-                }, 310);
+                }, 410);
             } else {
                 setTransform(slider, 'translate3d(' + (-currentSlide * (100 / steps) + '%') + ', 0%, 0)');
                 timelines[currentSlide - 1].classList.add('hpmd-active');
@@ -1933,7 +1934,7 @@
                 }
                 setTimeout(function() {
                     autoPlayControl.start();
-                }, 310);
+                }, 410);
             }
         }
 
@@ -2041,19 +2042,23 @@
                 stop();
                 reset();
                 loop();
+                autoPlayIsPlaying = true;
             }
             function stop() {
                 cancelAnimationFrame(rid);
+                autoPlayIsPlaying = false;
             }
 
             function pause() {
                 cancelAnimationFrame(rid);
                 state.progress = 0;
                 state.startPause = Date.now();
+                autoPlayIsPlaying = false;
             }
             function resume() {
                 state.finishPause = Date.now();
                 loop();
+                autoPlayIsPlaying = true;
             }
 
             return {
@@ -2196,7 +2201,7 @@
             if (currentSlide === 1) {
                 setTransform(slides[steps - 1], 'translate3d(' + (-100 * steps) + '%, 0%, 0)');
             }
-            autoPlayControl.start();
+            // autoPlayControl.start();
             initSwipe(slider, function(event) {
                 if (event.type === 'start') {
                     slider.classList.add('hpmd-no-transition');
@@ -2251,8 +2256,16 @@
                     video.play();
                     isPlaying = true;
                 }
+                if (isVisible && !autoPlayIsPlaying) {
+                    autoPlayIsPlaying = true;
+                    autoPlayControl.start();
+                } else if (!isVisible && autoPlayIsPlaying) {
+                    autoPlayIsPlaying = false;
+                    autoPlayControl.stop();
+                }
             }
             window.addEventListener('scroll', scrollHandler);
+            scrollHandler();
         });
     </script>
 </body>
