@@ -820,7 +820,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <video src="../../img_video/Video1.mp4" preload="auto" loop="loop" muted="muted" autoplay="autoplay"></video>
+                                    <video src="../../img_video/Video1.mp4" class="hpmd-video" preload="auto" loop="loop" muted="muted" autoplay="autoplay"></video>
                                     <div class="mute-button-wrapper">
                                         <div class="mute-button-bg"></div>
                                         <div class="mute-button mute"></div>
@@ -966,7 +966,7 @@
                                 
                                 <script>
                                     window.onload = function () {
-                                        const video = document.getElementsByTagName('video')[0];
+                                        const video = document.querySelector('.hpmd-video');
                                         const button = document.getElementsByClassName('mute-button')[0];
                                         const muteButton = document.getElementsByClassName('mute-button-wrapper')[0];
                                         const bannerContainer = document.getElementsByClassName('banner-container')[0];
@@ -987,47 +987,77 @@
                                             content[0].classList.remove('invisible');
                                             getClassForBanner();
                                         };
-                                        const visible = function (element) {
-                                            // Все позиции элемента
-                                            const targetPosition = {
-                                                top: window.pageYOffset + element.getBoundingClientRect().top,
-                                                left: window.pageXOffset + element.getBoundingClientRect().left,
-                                                right: window.pageXOffset + element.getBoundingClientRect().right,
-                                                bottom: window.pageYOffset + element.getBoundingClientRect().bottom
-                                            },
-                                                // Получаем позиции окна
-                                                windowPosition = {
-                                                    top: window.pageYOffset,
-                                                    left: window.pageXOffset,
-                                                    right: window.pageXOffset + document.documentElement.clientWidth,
-                                                    bottom: window.pageYOffset + document.documentElement.clientHeight
-                                                };
+                                        // const visible = function (element) {
+                                        //     // Все позиции элемента
+                                        //     const targetPosition = {
+                                        //         top: window.pageYOffset + element.getBoundingClientRect().top,
+                                        //         left: window.pageXOffset + element.getBoundingClientRect().left,
+                                        //         right: window.pageXOffset + element.getBoundingClientRect().right,
+                                        //         bottom: window.pageYOffset + element.getBoundingClientRect().bottom
+                                        //     },
+                                        //         // Получаем позиции окна
+                                        //         windowPosition = {
+                                        //             top: window.pageYOffset,
+                                        //             left: window.pageXOffset,
+                                        //             right: window.pageXOffset + document.documentElement.clientWidth,
+                                        //             bottom: window.pageYOffset + document.documentElement.clientHeight
+                                        //         };
 
-                                            if (targetPosition.bottom > windowPosition.top && // Если позиция нижней части элемента больше позиции верхней чайти окна, то элемент виден сверху
-                                                targetPosition.top < windowPosition.bottom && // Если позиция верхней части элемента меньше позиции нижней чайти окна, то элемент виден снизу
-                                                targetPosition.right > windowPosition.left && // Если позиция правой стороны элемента больше позиции левой части окна, то элемент виден слева
-                                                targetPosition.left < windowPosition.right) { // Если позиция левой стороны элемента меньше позиции правой чайти окна, то элемент виден справа
-                                                // Если элемент полностью видно, то запускаем следующий код
+                                        //     if (targetPosition.bottom > windowPosition.top && // Если позиция нижней части элемента больше позиции верхней чайти окна, то элемент виден сверху
+                                        //         targetPosition.top < windowPosition.bottom && // Если позиция верхней части элемента меньше позиции нижней чайти окна, то элемент виден снизу
+                                        //         targetPosition.right > windowPosition.left && // Если позиция правой стороны элемента больше позиции левой части окна, то элемент виден слева
+                                        //         targetPosition.left < windowPosition.right) { // Если позиция левой стороны элемента меньше позиции правой чайти окна, то элемент виден справа
+                                        //         // Если элемент полностью видно, то запускаем следующий код
+                                        //         video.play();
+                                        //         setTimeout(reduceVideo, 2000);
+                                        //         console.log('Вы видите элемент :)');
+                                        //     } else {
+                                        //         video.pause();
+                                        //         video.currentTime = 0;
+                                        //         // Если элемент не видно, то запускаем этот код
+                                        //         // console.clear();
+                                        //     }
+                                        //     console.log('vis')
+                                        // };
+
+                                        function isScrolledIntoView(el) {
+                                            var rect = el.getBoundingClientRect();
+                                            var elemHalfHeight = rect.height * .5;
+                                            var elemTop = rect.top + elemHalfHeight;
+                                            var elemBottom = rect.bottom - elemHalfHeight;
+
+                                            var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+
+                                            return isVisible;
+                                        }
+
+                                        var isPlaying = false;
+
+                                        function scrollHandler() {
+                                            var isVisible = isScrolledIntoView(video);
+
+                                            if (isVisible && !isPlaying) {
+                                                isPlaying = true;
                                                 video.play();
-                                                setTimeout(reduceVideo, 2000);
-                                                console.log('Вы видите элемент :)');
-                                            } else {
+                                            } else if (!isVisible && isPlaying) {
+                                                isPlaying = false;
                                                 video.pause();
-                                                video.currentTime = 0;
-                                                // Если элемент не видно, то запускаем этот код
-                                                // console.clear();
                                             }
-                                            console.log('vis')
-                                        };
+                                        }
+
+                                        window.addEventListener('scroll', scrollHandler);
+                                        video.pause();
+                                        scrollHandler();
+                                        setTimeout(reduceVideo, 2000);
 
                                         // Запускаем функцию при прокрутке страницы
-                                        window.addEventListener('scroll', function () {
-                                            console.log('scroll');
-                                            visible(bannerContainer);
-                                        });
+                                        // window.addEventListener('scroll', function () {
+                                        //     console.log('scroll');
+                                        //     visible(bannerContainer);
+                                        // });
 
                                         // А также запустим функцию сразу. А то вдруг, элемент изначально видно
-                                        visible(bannerContainer);
+                                        // visible(bannerContainer);
                                         const getSize = function () {
                                             if (muteButton) {
                                                 const widthElem = muteButton.clientWidth;
@@ -2100,71 +2130,6 @@
                 </style>
             </div>
         </section>
-        <!-- START Rentafont init -->
-        <script>
-            function P(t) {
-                if (A.l != '') {
-                    var n = document.createElement("link");
-                    n.setAttribute("href", "//rentafont.com/web_fonts/webfontcss/" + A.s + "?fonts=" + A.l + "&formats=" + t + "&by_style=" + A.a), n.setAttribute("rel", "stylesheet"), n.setAttribute("type", "text/css"), document.getElementsByTagName("head")[0].appendChild(n)
-                }
-            }
-
-            function F() {
-                var t = A.b;
-                switch (t) {
-                    case "Opera":
-                        f = "woff-svg";
-                        break;
-                    case "Chrome":
-                        f = "woff-ttf-svg";
-                        break;
-                    case "Safari":
-                        f = "svg-ttf";
-                        break;
-                    case "Mozilla":
-                        f = "eot-woff";
-                        break;
-                    case "Explorer":
-                        f = "eot-woff";
-                        break;
-                    case "Firefox":
-                        f = "ttf-woff";
-                        break;
-                    default:
-                        f = "ttf"
-                }
-                P(f)
-            }
-            var A = {
-                init: function () {
-                    this.s = WebFontConfig.id;
-                    this.l = WebFontConfig.fonts;
-                    if (WebFontConfig.by_style) {
-                        this.a = 1
-                    } else {
-                        this.a = 0
-                    };
-                    if ((window.opr && opr.addons) || window.opera || (navigator.userAgent.indexOf(' OPR/') >= 0))
-                        this.b = "Opera";
-                    if (typeof InstallTrigger !== 'undefined')
-                        this.b = "Firefox";
-                    if (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0)
-                        this.b = "Safari";
-                    if ((false) || (document.documentMode))
-                        this.b = "Explorer";
-                    if (!(document.documentMode) && window.StyleMedia)
-                        this.b = "Edge";
-                    if (window.chrome && window.chrome.webstore)
-                        this.b = "Chrome";
-                    F();
-                }
-            };
-            document.addEventListener("DOMContentLoaded", function () {
-                A.init();
-            });
-        </script>
-        <!-- END Rentafont init -->
-
     </div>
     <div class="side-nav">
         <ul class="links" data-mark_active="service-/village/people/experience"></ul>

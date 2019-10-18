@@ -9,7 +9,7 @@
     <link rel="prefetch" href="//www.forbes.ru//cdn.forbes.ru/" />
     <![endif]-->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0" />
+    <meta name="viewport" content="width=375px" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-param" content="_csrf-frontend">
     <meta name="csrf-token"
@@ -54,21 +54,36 @@
         rel="canonical">
     <link href="//www.forbes.ru/themes/forbes/css/magnific-popup.css?v=1556268210" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/style.css?v=1570641300" rel="stylesheet">
-    <link href="//www.forbes.ru/themes/forbes/css/article.css?v=1570641300" rel="stylesheet">
-    <link href="//www.forbes.ru/themes/forbes/css/2018/header.css?v=1570641300" rel="stylesheet">
-    <link href="//www.forbes.ru/themes/forbes/css/2018/footer.css?v=1570641300" rel="stylesheet">
+    <link href="./article.css" rel="stylesheet">
+    <link href="./header.css" rel="stylesheet">
+    <link href="./footer.css" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/style2.css?v=1570641300" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/forbes_curr_informer.css?v=1570641300" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/jquery.dataTables.min.css?v=1570641300" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/forbes_ratings.css?v=1570641300" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/jquery.mCustomScrollbar.css?v=1570641300" rel="stylesheet">
     <link href="//www.forbes.ru/themes/forbes/css/select2.min.css?v=1570641300" rel="stylesheet">
-    <link href="//www.forbes.ru/themes/forbes/css/media.css?v=1570641300" rel="stylesheet">
+    <link href="./media.css" rel="stylesheet">
     <script src="//www.forbes.ru/themes/forbes/js/head.js?v=1570641300"></script>
     <script src="//www.forbes.ru/themes/forbes/js/block-json.js?v=1570641300"></script>
     <script src="//www.forbes.ru/assets/3ee57c1/jquery.js?v=1570535286"></script>
     <script src="//www.forbes.ru/themes/forbes/js/jquery.magnific-popup.min.js?v=1556268234"></script>
     <link href="//www.forbes.ru/amp/382467" rel="amphtml" />
+    <style>
+        body {
+            width: 375px;
+            position: relative;
+            margin: 0 auto;
+        }
+        body#theme2018 .header-menu-wrap {
+            width: 375px;
+            left: 50%;
+            -webkit-transform: translate3d(-50%, 0%, 0);
+            -moz-transform: translate3d(-50%, 0%, 0);
+            -ms-transform: translate3d(-50%, 0%, 0);
+            transform: translate3d(-50%, 0%, 0);
+        }
+    </style>
 </head>
 
 
@@ -111,7 +126,7 @@
                                         <img class="main-menu-img" src="//www.forbes.ru/themes/forbes/img/newindex/close-btn.svg"
                                             alt="">
                                     </a>
-                                    <button class="btn-burger btn-burger-js"></button>
+                                    <button class="btn-burger btn-burger-js" style="pointer-events: none; touch-action: none;"></button>
                                     <button class="btn-close-modal-menu btn-close-modal-menu-js"></button>
                                 </div>
                             </div>
@@ -725,7 +740,7 @@
                                                 «Клуба лидеров» стал Аветисян.</p>
 
                                             <div class="content-banner">
-                                                <video src="../../img_video/Video1.mp4" preload="auto" loop="loop" muted="muted" autoplay="autoplay"></video>
+                                                <video src="../../img_video/Video1.mp4" preload="auto" loop="loop" muted="muted" autoplay="autoplay" class="hpmd-video"></video>
                                                 <div class="mute-button-wrapper">
                                                     <div class="mute-button-bg"></div>
                                                     <div class="mute-button mute"></div>
@@ -1445,7 +1460,7 @@
     <script src="//www.forbes.ru/themes/forbes/js/forbes2018.js?v=1570641300"></script>
     <script>
         window.onload = function () {
-            const video = document.getElementsByTagName('video')[0];
+            const video = document.querySelector('.hpmd-video');
             const headerBanner = document.getElementsByClassName('header-banner')[0];
             const bottomBanner = document.getElementsByClassName('bottom-banner')[0];
             const button = document.getElementsByClassName('mute-button')[0];
@@ -1482,6 +1497,35 @@
                 getVideoBannerSize();
                 getSize();
             };
+
+            var isPlaying = false;
+
+            function isScrolledIntoView(el) {
+                var rect = el.getBoundingClientRect();
+                var elemHalfHeight = rect.height * .5;
+                var elemTop = rect.top + elemHalfHeight;
+                var elemBottom = rect.bottom - elemHalfHeight;
+
+                var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+
+                return isVisible;
+            }
+
+            function scrollHandler() {
+                var isVisible = isScrolledIntoView(video);
+
+                if (isVisible && !isPlaying) {
+                    isPlaying = true;
+                    video.play();
+                } else if (!isVisible && isPlaying) {
+                    isPlaying = false;
+                    video.pause();
+                }
+            }
+
+            window.addEventListener('scroll', scrollHandler);
+            video.pause();
+            scrollHandler();
 
         }
     </script>

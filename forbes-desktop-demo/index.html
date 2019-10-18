@@ -695,6 +695,14 @@
                                                     src="//www.forbes.ru/files/snimok_ekrana_2019-09-23_v_20.48.37.png__1569260994__99533.png"
                                                     width="1228" height="709" /></p>
 
+                                            <div class="hpmd_content-banner">
+                                                <video src="../img_video/Video1.mp4" class="hpmd_video" preload="auto" loop="loop" muted="muted"
+                                                    autoplay="autoplay"></video>
+                                                <div class="hpmd_mute-button-wrapper">
+                                                    <div class="hpmd_mute-button hpmd_mute"></div>
+                                                </div>
+                                            </div>
+
                                             <p dir="ltr">Сам Аветисян параллельно работе в АСИ строил банковский бизнес.
                                                 В 2012 году он стал основным владельцем небольшого банка «Региональный
                                                 кредит», в 2015 году выкупил у Bank of Cyprus Юниаструмбанк. А в начале
@@ -792,13 +800,6 @@
                                                 принадлежат логистические комплексы в Подмосковье, на ее сайте
                                                 говорится, что как дистрибьютор она работает с почти 70 заводами,
                                                 производящими продукты питания.</p>
-
-                                            <div class="hpmd_content-banner">
-                                                <video src="../img_video/Video1.mp4" class="hpmd_video" preload="auto" loop="loop" muted="muted" autoplay="autoplay"></video>
-                                                <div class="hpmd_mute-button-wrapper">
-                                                    <div class="hpmd_mute-button hpmd_mute"></div>
-                                                </div>
-                                            </div>
 
                                             <h2>Поле консервных экспериментов</h2>
                                             <p>Сегодня консервный бизнес Зыкова находится на стадии банкротства. Что
@@ -1410,9 +1411,20 @@
     <script src="//www.forbes.ru/themes/forbes/js/forbes2018.js?v=1570641300"></script>
 
     <script>
+        function isScrolledIntoView(el) {
+            var rect = el.getBoundingClientRect();
+            var elemHalfHeight = rect.height * .5;
+            var elemTop = rect.top + elemHalfHeight;
+            var elemBottom = rect.bottom - elemHalfHeight;
+
+            var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+
+            return isVisible;
+        }
         window.onload = function () {
             var video = document.querySelector('.hpmd_video');
             var button = document.querySelector('.hpmd_mute-button');
+            var isPlaying = false;
 
             function toggleButton () {
                 if (video.muted) {
@@ -1427,6 +1439,20 @@
             };
             button.addEventListener('click', toggleButton);
 
+            function scrollHandler() {
+                var isVisible = isScrolledIntoView(video);
+
+                if (isVisible && !isPlaying) {
+                    isPlaying = true;
+                    video.play();
+                } else if (!isVisible && isPlaying) {
+                    isPlaying = false;
+                    video.pause();
+                }
+            }
+            window.addEventListener('scroll', scrollHandler);
+            video.pause();
+            scrollHandler();
         }
     </script>
 </body>
