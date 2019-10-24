@@ -173,11 +173,13 @@
         <style>
             .header-banner {
                 font-size: 14px !important;
-                margin: 0 25px;
                 /* width: 100%; */
-                background: #dffcc5;
+                margin: 0 25px;
+                background: rgb(248, 229, 15) url('./img/back.png') no-repeat 50% 50%;
+                background-size: cover;
                 position: relative;
                 overflow: hidden;
+                padding-bottom: 37.8%;
             }
         
             .header-banner p {
@@ -185,6 +187,26 @@
                 width: 100%;
                 font-size: 1.2em;
                 margin-bottom: 1em;
+            }
+
+            .hpmd_text {
+                width: 77.77%;
+                height: 51.89%;
+                position: absolute;
+                top: 24.05%;
+                left: 5.55%;
+                background: url('./img/text.png') no-repeat 50% 50%;
+                background-size: contain;
+            }
+
+            .hpmd_card {
+                width: 34.44%;
+                height: 50%;
+                position: absolute;
+                top: 25%;
+                left: 61.6%;
+                background: url('./img/card.png') no-repeat 50% 50%;
+                background-size: contain;
             }
         
             .menu-icon {
@@ -343,8 +365,8 @@
             }
         </style>
         <div class="header-banner">
-            <h2>Pellentesque eleifend sed ipsum eu accumsan</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="hpmd_text"></div>
+            <div class="hpmd_card"></div>
         </div>
     </div>
     <div class="modal-menu">
@@ -740,7 +762,7 @@
                                                 «Клуба лидеров» стал Аветисян.</p>
 
                                             <div class="content-banner">
-                                                <video src="../../img_video/Video1.mp4" preload="auto" loop="loop" muted="muted" autoplay="autoplay" class="hpmd-video"></video>
+                                                <video src="../../img_video/vid.mp4" preload="auto" loop="loop" muted="muted" autoplay="autoplay" class="hpmd-video"></video>
                                                 <div class="mute-button-wrapper">
                                                     <div class="mute-button-bg"></div>
                                                     <div class="mute-button mute"></div>
@@ -1321,7 +1343,7 @@
         </div>
     </div>
 
-    <div class="bottom-banner">
+    <!-- <div class="bottom-banner">
         <h2>Pellentesque eleifend sed ipsum eu accumsan</h2>
         <div class="about-product">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus pretium dictum id et
@@ -1334,7 +1356,7 @@
         </div>
         <div class="note">*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus pretium
             dictum id</div>
-    </div>
+    </div> -->
     <footer class="footer">
         <div class="main-wrap">
             <div class="footer-content">
