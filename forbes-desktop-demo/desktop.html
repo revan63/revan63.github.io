@@ -79,12 +79,52 @@
     <style>
         .hpmd_header-banner {
             width: 100%;
-            background: #dffcc5;
+            padding-bottom: 20%;
+            background: rgb(248, 229, 15) url('./img/back.png') no-repeat 50% 50%;
+            background-size: cover;
             line-height: 1.25;
             margin-bottom: 30px;
             position: relative;
             text-align: center;
         }
+        
+        .hpmd_text1 {
+            width: 26.77%;
+            height: 35.416%;
+            position: absolute;
+            top: 22.916%;
+            left: 5.1%;
+            background: url('./img/text1.png') no-repeat 0% 50%;
+            background-size: contain;
+        }
+        .hpmd_text2 {
+            width: 30.3125%;
+            height: 16.66%;
+            position: absolute;
+            top: 60.9375%;
+            left: 5.1%;
+            background: url('./img/text2.png') no-repeat 0% 50%;
+            background-size: contain;
+        }
+        .hpmd_text3 {
+            width: 30.2%;
+            height: 41.66%;
+            position: absolute;
+            top: 29.16%;
+            left: 66.458%;
+            background: url('./img/text3.png') no-repeat 0% 50%;
+            background-size: contain;
+        }
+        .hpmd_card {
+            width: 21.04%;
+            height: 66.66%;
+            position: absolute;
+            top: 16.66%;
+            left: 39.479%;
+            background: url('./img/card.png') no-repeat 0% 50%;
+            background-size: contain;
+        }
+
         .hpmd_header-banner_h2, .hpmd_header-banner_p {
             margin: 0 auto;
             padding: 0.75em 0;
@@ -569,8 +609,10 @@
                             <div class="headline">
                                 <!-- HPMD BRANDING HEADER -->
                                 <div class="hpmd_header-banner">
-                                    <div class="hpmd_header-banner_h2">Pellentesque eleifend sed ipsum eu accumsan</div>
-                                    <div class="hpmd_header-banner_p">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                                    <div class="hpmd_card"></div>
+                                    <div class="hpmd_text1"></div>
+                                    <div class="hpmd_text2"></div>
+                                    <div class="hpmd_text3"></div>
                                 </div>
                                 <!-- / HPMD BRANDING HEADER -->
 
@@ -696,7 +738,7 @@
                                                     width="1228" height="709" /></p>
 
                                             <div class="hpmd_content-banner">
-                                                <video src="../img_video/Video1.mp4" class="hpmd_video" preload="auto" loop="loop" muted="muted"
+                                                <video src="../img_video/vid.mp4" class="hpmd_video" preload="auto" loop="loop" muted="muted"
                                                     autoplay="autoplay"></video>
                                                 <div class="hpmd_mute-button-wrapper">
                                                     <div class="hpmd_mute-button hpmd_mute"></div>
@@ -1063,7 +1105,7 @@
 
 
                                 <!-- HPMD FOOTER -->
-                                    <div class="hpmd_bottom-banner">
+                                    <!-- <div class="hpmd_bottom-banner">
                                         <h2 class="hpmd_bottom-banner_h2">Pellentesque eleifend sed ipsum eu accumsan</h2>
                                         <div class="hpmd_about-product">
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus pretium dictum id et urna.</p>
@@ -1077,7 +1119,7 @@
                                             </div>
                                         </div>
                                         <div class="hpmd_note">*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus pretium dictum id</div>
-                                    </div>
+                                    </div> -->
                                 <!-- / HPMD FOOTER -->
                             </div>
                             <div class="block-bnr-in-text">

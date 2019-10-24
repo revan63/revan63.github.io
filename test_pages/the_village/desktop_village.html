@@ -805,22 +805,15 @@
                                 </div>
                                 <div class="banner-container">
                                     <div class="content-container invisible">
-                                        <h3>Pellentesque eleifend sed ipsum eu accumsan</h3>
-                                        <div class="about-product">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus pretium dictum id
-                                                et urna.</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus pretium dictum id
-                                                et urna.</p>
-                                        </div>
-                                        <div class="note">*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut urna vitae lectus
-                                            pretium dictum id et urna.</div>
-                                        <div class="button">
-                                            <span class="button-text">
-                                                Learn more...
-                                            </span>
+                                        <div class="hpmd_logo"></div>
+                                        <div class="hpmd_list"></div>
+                                        <div class="hpmd_bottom">
+                                            <div class="hpmd_bottom_card"></div>
+                                            <div class="hpmd_bottom_text"></div>
+                                            <div class="hpmd_bottom_btn"></div>
                                         </div>
                                     </div>
-                                    <video src="../../img_video/Video1.mp4" class="hpmd-video" preload="auto" loop="loop" muted="muted" autoplay="autoplay"></video>
+                                    <video src="../../img_video/vid.mp4" class="hpmd-video" preload="auto" loop="loop" muted="muted" autoplay="autoplay"></video>
                                     <div class="mute-button-wrapper">
                                         <div class="mute-button-bg"></div>
                                         <div class="mute-button mute"></div>
@@ -842,11 +835,67 @@
                                     body .banner-container p {
                                         font-size: 0.675em;
                                     }
+
+                                    .hpmd_bottom {
+                                        width: 100%;
+                                        height: 25%;
+                                        position: absolute;
+                                        bottom: 0;
+                                        left: 0;
+                                        background: rgb(28, 28, 28);
+                                    }
+                                    .hpmd_logo {
+                                        width: 32.6%;
+                                        height: 19.81%;
+                                        position: absolute;
+                                        top: 4.44%;
+                                        left: 4.6875%;
+                                        background: url('./desktop_img/logo.png') no-repeat 0% 50%;
+                                        background-size: contain;
+                                    }
+                                    .hpmd_list {
+                                        width: 37.91%;
+                                        height: 24.44%;
+                                        position: absolute;
+                                        top: 34.07%;
+                                        left: 4.479%;
+                                        background: url('./desktop_img/list.png') no-repeat 0% 50%;
+                                        background-size: contain;
+                                    }
+                                    .hpmd_bottom_btn {
+                                        width: 24.6875%;
+                                        height: 42.96%;
+                                        position: absolute;
+                                        top: 28.88%;
+                                        left: 73.125%;
+                                        background: url('./desktop_img/click_btn.png') no-repeat 50% 50%;
+                                        background-size: contain;
+                                    }
+
+                                    .hpmd_bottom_text {
+                                        width: 36.66%;
+                                        height: 48.88%;
+                                        position: absolute;
+                                        top: 27.4%;
+                                        left: 33.33%;
+                                        background: url('./desktop_img/bottom_text.png') no-repeat 50% 50%;
+                                        background-size: contain;
+                                    }
+
+                                    .hpmd_bottom_card {
+                                        width: 43.85%;
+                                        height: 220%;
+                                        position: absolute;
+                                        bottom: -45.04%;
+                                        left: -5%;
+                                        background: url('./desktop_img/card.png') no-repeat 50% 50%;
+                                        background-size: contain;
+                                    }
                                 
                                     .banner-container {
                                         font-size: 14px !important;
                                         width: 100%;
-                                        background: #dffcc5;
+                                        background: rgb(248, 226, 16);
                                         position: relative;
                                         margin-bottom: 81px;
                                     }
@@ -1082,7 +1131,7 @@
                                             video.style.width = '45%';
                                             video.style.height = '45%';
                                             video.style.left = (0.5 * width) * 100 / width + '%';
-                                            video.style.top = (0.28 * height - 7) * 100 / height + '%';
+                                            video.style.top = (0.23 * height - 7) * 100 / height + '%';
                                             video.classList.remove('small-video');
                                         };
                                         getContainerSize();
